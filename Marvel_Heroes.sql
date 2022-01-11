@@ -79,7 +79,7 @@ GO
 
 -- 9. Show 5 records of super heroes who have maximum power of good alignment (33 have a 100 max power)
 SELECT 
-    TOP 50 *
+    TOP 5 *
 FROM
     dbo.charcters_stats
 WHERE
@@ -97,7 +97,6 @@ WHERE
     Alignment LIKE '%good%' AND [Power] LIKE '%100%' ;
 GO
 
-
 -- 11. Shape them what you got in point 10
 
 -- 12. Show all records from point 10
@@ -110,19 +109,73 @@ WHERE
 GO
 
 -- 13. Retrieve total of first five records of max power of good alignment super heroes
+SELECT 
+   SUM([Power]) AS SumPower
+FROM (
+    SELECT 
+        TOP 5 *
+    FROM
+        dbo.charcters_stats
+    WHERE
+        Alignment LIKE '%good%'
+    ORDER BY
+        [Power] DESC
+)AS T;
+GO
 
 -- 14. Draw a bar plot of all super heroes who are having good alignment and max power of
 --     top five only , take same object of point 13 , show name and total in plot with green bars
 
 -- 15. Extract villains having bad alignment
+SELECT 
+    *
+FROM
+    dbo.charcters_stats
+WHERE
+    Alignment LIKE '%bad%';
+GO
 
 -- 16. Show first five records of point 15
+SELECT 
+    TOP 5 *
+FROM
+    dbo.charcters_stats
+WHERE
+    Alignment LIKE '%bad%';
+GO
 
 -- 17. Show top five fastest super villains in terms of super speed
+SELECT 
+    TOP 5 *
+FROM
+    dbo.charcters_stats
+WHERE
+    Alignment LIKE '%bad%'
+ORDER BY
+    Speed DESC;
+GO
 
 -- 18. Top five super villains in terms of intelligence
+SELECT 
+    TOP 5 *
+FROM
+    dbo.charcters_stats
+WHERE
+    Alignment LIKE '%bad%'
+ORDER BY
+    Intelligence DESC;
+GO
 
 -- 19. Show who is most dangerous super villain after calculating their total (top 5 only)
+SELECT 
+    TOP 5 *
+FROM
+    dbo.charcters_stats
+WHERE
+    Alignment LIKE '%bad%'
+ORDER BY
+    Total DESC;
+GO
 
 -- 20. Draw a histogram for speed of super heroes having fig size 10,5 , provide speed in histogram for 
 --     only good alignment super heroes ,title should be "distribution of speed" , xlabel should be "speed"
