@@ -98,6 +98,13 @@ WHERE
 GO
 
 -- 11. Shape them what you got in point 10
+SELECT 
+    COUNT([Power]) AS Number_of_Heroes
+FROM
+    dbo.charcters_stats
+WHERE
+    Alignment LIKE '%good%' AND [Power] LIKE '%100%' ;
+GO
 
 -- 12. Show all records from point 10
 SELECT 
@@ -125,6 +132,15 @@ GO
 
 -- 14. Draw a bar plot of all super heroes who are having good alignment and max power of
 --     top five only , take same object of point 13 , show name and total in plot with green bars
+SELECT 
+    TOP 5 [Power]
+FROM
+    dbo.charcters_stats
+WHERE
+    Alignment LIKE '%good%'
+ORDER BY
+    [Power] DESC; 
+GO
 
 -- 15. Extract villains having bad alignment
 SELECT 
@@ -179,6 +195,23 @@ GO
 
 -- 20. Draw a histogram for speed of super heroes having fig size 10,5 , provide speed in histogram for 
 --     only good alignment super heroes ,title should be "distribution of speed" , xlabel should be "speed"
+SELECT 
+    [Name], Alignment
+FROM
+    dbo.charcters_stats
+WHERE
+    Alignment LIKE '%good%'
+GROUP BY 1
+ORDER BY 1; 
+GO
 
 -- 21. Draw a histogram for combat of super villains having fig size 10,5 , provide combat in histogram for 
 --     only bad alignment super heroes ,title should be "distribution of combat" , xlabel should be "combat"
+/*
+with total as (select count(*) as cnt from employee_salary)
+select bucket, sum(cnt) over (order by bucket) / total.cnt from (
+    select width_bucket(salary, 70000, 140000, 20) as bucket, 
+           count(*) as cnt
+    from employee_salary
+    group by bucket 
+    order by bucket) x; */
